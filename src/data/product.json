@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Product 1",
+        "description": "Description 1",
+        "code": "Code 1",
+        "price": 100,
+        "status": true,
+        "stock": 10,
+        "category": "Category 1",
+        "thumbnails": [
+            "https://example.com/thumbnail1.jpg",
+            "https://example.com/thumbnail2.jpg"
+        ]
+
+    }
+]
