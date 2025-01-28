@@ -1,17 +1,7 @@
 import fs from "fs";
+
 class ProductManager{
-    //propiedades y métodos para obtener, crear, editar y eliminar un producto.
-    /*
-    {
-        id: "",
-        title: "",
-        description: ""
-        price: "",
-        thumbnail: "",
-        code: "",
-        stock: 0
-    }
-    */
+    
     constructor(pathFile){
     this.pathFile = pathFile;
     }
@@ -19,16 +9,19 @@ class ProductManager{
         try {
             //Leer el archivo de productos y lo guardamos
             const fileData = await fs.promises.readFile(this.pathFile, "utf-8");
-            return fileData;
+            //parseamos el archivo a un objeto
+            const data = JSON.parse(fileData);
+            return data;
+
         } catch (error) {
-            console.error("Error al leer el archivo");
+            throw new Error(`Error al obtener los productos: ${error.message}`);
         }
     }
 
-    addProduct = () => {}
-    getProductById = () => {}
-    setProductById = () => {}
-    deleteProductById = () => {}
+    // getProductById = () => {}
+    // addProduct = () => {}
+    // setProductById = () => {}
+    // deleteProductById = () => {}
 }
 
 export default ProductManager;
