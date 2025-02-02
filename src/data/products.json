@@ -1,13 +1,46 @@
 [
-    {
-        "id": 1,
-        "name": "Product 1",
-        "description": "Description 1",
-        "code": "Code 1",
-        "price": 100,
-        "status": true,
-        "stock": 10,
-        "category": "Category 1",
-        "thumbnails": ""
-    }
+  {
+    "id": 1,
+    "name": "Product 1",
+    "description": "Description 1",
+    "code": "Code 1",
+    "price": 100,
+    "status": true,
+    "stock": 10,
+    "category": "Category 1",
+    "thumbnails": ""
+  },
+  {
+    "id": 2,
+    "title": " producto 43",
+    "description": "descsad",
+    "code": 234,
+    "price": 242,
+    "status": true,
+    "stock": 20,
+    "category": "remeras",
+    "thumbnails": ""
+  },
+  {
+    "id": 3,
+    "title": " producto 2",
+    "description": "descsad",
+    "code": 234,
+    "price": 242,
+    "status": true,
+    "stock": 20,
+    "category": "remeras",
+    "thumbnails": []
+  },
+  {
+    "id": 4,
+    "title": " producto 2",
+    "description": "descsad",
+    "code": 234,
+    "price": 242,
+    "status": true,
+    "stock": 20,
+    "category": "remeras",
+    "thumbnails": []
+  }
 ]
