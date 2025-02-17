@@ -21,10 +21,21 @@ const PORT = 8080;
 //habilitamos poder recibir informacion en formato json
 app.use(express.json());
 
+//habilitamos la carpeta publica
+app.use(express.static("public"));
+
 //endpoints
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
+
+//websockets
+io.on("connection", (socket) => {
+    console.log("usuario conectado");
+    socket.on("newProduct", (data) => {
+        io.sockets.emit("newProduct", data);
+    });
+});
 
 //iniciamos nuestro servidor
 app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Product 1",
+    "title": "Product 1",
     "description": "Description 1",
     "code": "Code 1",
     "price": 100,
