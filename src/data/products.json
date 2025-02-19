@@ -1,79 +1,20 @@
 [
   {
     "id": 1,
-    "title": "Product 1",
-    "description": "Description 1",
-    "code": "Code 1",
-    "price": 100,
-    "status": true,
-    "stock": 10,
-    "category": "Category 1",
-    "thumbnails": ""
+    "title": "buzo",
+    "description": "buzo polar",
+    "code": "glm211",
+    "price": "5000",
+    "stock": "2",
+    "category": "buzos"
   },
   {
     "id": 2,
-    "title": " producto 43",
-    "description": "descsad",
-    "code": 234,
-    "price": 54353453,
-    "status": true,
-    "stock": 20,
-    "category": "remeras",
-    "thumbnails": ""
-  },
-  {
-    "id": 3,
-    "title": " producto 2",
-    "description": "descsad",
-    "code": 234,
-    "price": 242,
-    "status": true,
-    "stock": 20,
-    "category": "remeras",
-    "thumbnails": []
-  },
-  {
-    "id": 4,
-    "title": " producto 2",
-    "description": "descsad",
-    "code": 234,
-    "price": 242,
-    "status": true,
-    "stock": 20,
-    "category": "remeras",
-    "thumbnails": []
-  },
-  {
-    "id": 5,
-    "title": " producto 2",
-    "description": "descsad",
-    "code": 234,
-    "price": 242,
-    "status": true,
-    "stock": 20,
-    "category": "remeras",
-    "thumbnails": []
-  },
-  {
-    "id": 6,
-    "title": " producto 2",
-    "description": "descsad",
-    "code": 234,
-    "price": 242,
-    "status": true,
-    "stock": 20,
-    "category": "remeras",
-    "thumbnails": []
-  },
-  {
-    "id": 7,
-    "title": " producto 2",
-    "description": "descsad",
-    "code": 234,
-    "price": 242,
-    "status": true,
-    "stock": 20,
-    "category": "remeras",
-    "thumbnails": []
+    "title": "remera",
+    "description": "remera blanca",
+    "code": "wd24",
+    "price": "4500",
+    "stock": "5",
+    "category": "remeras"
   }
 ]
