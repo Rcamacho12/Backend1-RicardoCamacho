@@ -1,60 +1,69 @@
+// app.js
 import express from "express";
-import productsRouter from "./routes/products.router.js";
-import cartsRouter from "./routes/carts.router.js";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import http from "http";
-import viewsRouter from "./routes/views.router.js";
-import ProductManager from "./ProductManager.js";
+import path from "path";
 
+import connectDB from "../public/js/db.js";
+import productsRouter from "./routes/products.router.js";
+import cartsRouter from "./routes/carts.router.js";
+import viewsRouter from "./routes/views.router.js";
+
+// Inicialización
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-//handlebars
+// Conexión a la BD
+connectDB();
+
+// Configuración Handlebars
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
-app.set("views", "./src/views");
+app.set("views", path.join(process.cwd(), "src/views"));
 
-//puerto de nuestro servidor
-const PORT = 8080;
-
-//habilitamos poder recibir informacion en formato json
+// Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(process.cwd(), "src/public")));
 
-//habilitamos la carpeta publica
-app.use(express.static("public"));
-
-//endpoints
+// Rutas
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 
-//websockets
-const productManager = new ProductManager("./src/data/products.json");
+// Websockets
 io.on("connection", (socket) => {
-    console.log("usuario conectado");
+  console.log("Usuario conectado vía Socket.IO");
 
-    socket.on("newProduct", async (productData) => {
-        try {
-            const newProduct = await productManager.addProduct(productData);
-            io.emit("productAdded", newProduct);
-        } catch (error) {
-            console.log("error al agregar producto");
-        }
-    });
-    socket.on("deleteProduct", async (productId) => {
-        try {
-            await productManager.deleteProductById(productId);
-            // Emitir el id del producto eliminado para que los clientes actualicen su vista
-            io.emit("productDeleted", productId);
-        } catch (error) {
-            console.log("error al eliminar producto", error);
-        }
-    });
+  // Evento para agregar un producto (en tiempo real)
+  socket.on("newProduct", async (productData) => {
+    try {
+      // Importamos dinámicamente el modelo para no tener problemas de scope
+      const { default: Product } = await import("./src/models/Product.js");
+      const newProduct = await Product.create(productData);
+      // Emitimos a todos los clientes el producto recién agregado
+      io.emit("productAdded", newProduct);
+    } catch (error) {
+      console.error("Error al agregar producto:", error);
+    }
+  });
+
+  // Evento para eliminar un producto (en tiempo real), si fuera necesario
+  socket.on("deleteProduct", async (productId) => {
+    try {
+      const { default: Product } = await import("./src/models/Product.js");
+      await Product.findByIdAndDelete(productId);
+      // Notificamos a todos los clientes que se ha eliminado un producto
+      io.emit("productDeleted", productId);
+    } catch (error) {
+      console.error("Error al eliminar producto:", error);
+    }
+  });
 });
 
-//iniciamos nuestro servidor
+const PORT = 8080;
 server.listen(PORT, () => {
-    console.log(`servidor iniciado en el puerto http://localhost:${PORT}`);
+  console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });
