@@ -1,11 +1,11 @@
-// app.js
+// src/app.js
 import express from "express";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import http from "http";
 import path from "path";
 
-import connectDB from "../public/js/db.js";
+import connectDB from "../public/js/db.js"; 
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
@@ -40,22 +40,20 @@ io.on("connection", (socket) => {
   // Evento para agregar un producto (en tiempo real)
   socket.on("newProduct", async (productData) => {
     try {
-      // Importamos dinámicamente el modelo para no tener problemas de scope
-      const { default: Product } = await import("./src/models/Product.js");
+      // Importamos dinámicamente el modelo de producto (ubicado en src/models/user.model.js)
+      const { default: Product } = await import("./models/user.model.js");
       const newProduct = await Product.create(productData);
-      // Emitimos a todos los clientes el producto recién agregado
       io.emit("productAdded", newProduct);
     } catch (error) {
       console.error("Error al agregar producto:", error);
     }
   });
 
-  // Evento para eliminar un producto (en tiempo real), si fuera necesario
+  // Evento para eliminar un producto (en tiempo real)
   socket.on("deleteProduct", async (productId) => {
     try {
-      const { default: Product } = await import("./src/models/Product.js");
+      const { default: Product } = await import("./models/user.model.js");
       await Product.findByIdAndDelete(productId);
-      // Notificamos a todos los clientes que se ha eliminado un producto
       io.emit("productDeleted", productId);
     } catch (error) {
       console.error("Error al eliminar producto:", error);

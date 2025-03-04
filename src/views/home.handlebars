@@ -1,9 +1,39 @@
-<div>
-    <h1>Home</h1>
-    <h2>Lista de productos</h2>
-    <ul>
-        {{#each products}}
-            <li>{{this.title}}  - {{this.price}} </li>
-        {{/each}}
-    </ul>
+<!-- src/views/home.handlebars -->
+<h1>Lista de Productos</h1>
+
+<ul>
+  {{#each products}}
+    <li>
+      <strong>{{this.title}}</strong> - ${{this.price}}<br>
+      Categoría: {{this.category}}<br>
+      {{#if this.thumbnail}}
+        <img src="{{this.thumbnail}}" alt="{{this.title}}" width="100">
+      {{/if}}
+      <a href="/products/{{this._id}}">Ver Detalles</a>
+      <button onclick="addToCart('{{this._id}}')">Agregar al carrito</button>
+    </li>
+  {{/each}}
+</ul>
+
+<div class="pagination">
+  {{#if hasPrevPage}}
+    <a href="/?limit={{limit}}&page={{prevPage}}{{#if sort}}&sort={{sort}}{{/if}}{{#if query}}&query={{query}}{{/if}}">Anterior</a>
+  {{/if}}
+  <span>Página {{page}} de {{totalPages}}</span>
+  {{#if hasNextPage}}
+    <a href="/?limit={{limit}}&page={{nextPage}}{{#if sort}}&sort={{sort}}{{/if}}{{#if query}}&query={{query}}{{/if}}">Siguiente</a>
+  {{/if}}
 </div>
+
+<!-- Contenedor para mostrar mensajes -->
+<div id="message" style="margin-top: 20px; color: green;"></div>
+
+<script>
+  function addToCart(productId) {
+    const messageDiv = document.getElementById('message');
+    messageDiv.innerText = `Producto ${productId} agregado al carrito.`;
+    setTimeout(() => {
+      messageDiv.innerText = '';
+    }, 3000);
+  }
+</script>
